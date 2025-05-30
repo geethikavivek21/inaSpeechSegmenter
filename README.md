@@ -37,7 +37,7 @@ ffmpeg -i "Top Singer _ Musical Reality Show _ Flowers _ Ep# 09.mp3" "top_singer
 ## Segment the Audio Using inaSpeechSegmenter
 
 ```bash
-Segmenter.py -i "/home/ssl/Downloads/top_singer.wav" -o ~/Downloads/ina_output
+python Segmenter.py -i "/home/ssl/Downloads/top_singer.wav" -o ~/Downloads/ina_output
 
 
 ```
