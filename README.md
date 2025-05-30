@@ -4,68 +4,70 @@ This guide walks you through using the [inaSpeechSegmenter](https://github.com/i
 
 ---
 
-## STEP 1: Create Conda Environment
-
+## Set Up Your Environment
+Before running segmentation, ensure your Anaconda environment is set up.
 ```bash
-conda create -n audio_env python=3.9 -y
+conda create --name speech_seg python=3.8 -y
+conda activate speech_seg
+```
+Install the required dependencies:
+```bash
+conda install -c conda-forge numpy scipy matplotlib ffmpeg requests -y
+pip install torch tensorflow inaSpeechSegmenter
+```
+---
+
+## Navigate to Your Audio File Directory
+Change directory to where your MP3 file and Segmenter.py file is stored:
+```bash
+cd /home/ssl/Downloads/
 ```
 
 ---
 
-## STEP 2: Activate the Environment
-
+## Convert MP3 to WAV
+inaSpeechSegmenter works best with WAV files. Convert the MP3:
 ```bash
-conda activate audio_env
-```
-
----
-
-## STEP 3: Install inaSpeechSegmenter
-
-```bash
-pip install inaSpeechSegmenter
-
+ffmpeg -i "Top Singer _ Musical Reality Show _ Flowers _ Ep# 09.mp3" "top_singer.wav"
 ```
 
 ---
 
 
-## STEP 4: Download a Sample Audio File
+## Segment the Audio Using inaSpeechSegmenter
 
 ```bash
-wget https://file-examples.com/wp-content/uploads/2017/11/file_example_WAV_1MG.wav -O test.wav
+Segmenter.py -i "/home/ssl/Downloads/top_singer.wav" -o ~/Downloads/ina_output
 
-
-```
-
----
-
-## STEP 5: Run the Segmentation Script
-Make sure you're inside the environment and the folder containing segmentation.py.
-
-```bash
-python segmentation.py
 
 ```
 
 ---
 
-## STEP 6: Visualize in Sonic Visualiser
+## Open the CSV to Check Labels
+
+```bash
+cat ~/speech_seg_project/top_singer.csv
+
+```
+
+---
+
+## Import Labels into Sonic Visualiser
 If Sonic Visualiser is installed, run:
 
 ```bash
-sonic-visualiser test.wav
+sonic-visualiser
 
 
 ```
-Then, in Sonic Visualiser:
+In Sonic Visualiser:
 
-Go to Layer → Import Annotation Layer → From CSV File
+File → Open → select top_singer.wav
 
-Select segments.csv
+Layer → Import Annotation Layer → From CSV File → select top_singer.csv
 
-You will see speech/music/noise segments overlaid on the waveform!
-
+You’ll see labeled segments aligned with the waveform.
 
 ## Optional: Install Sonic Visualiser
 If not already installed:
@@ -78,6 +80,3 @@ sudo apt install sonic-visualiser -y
 ```
 
 ---
-
-
-
